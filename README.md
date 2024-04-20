@@ -1,5 +1,5 @@
-#  <div align="center"> ![fontLogo01](https://github.com/jobdfhjfghfg/happymallSpring/assets/155034269/c32f3765-883a-4980-be63-497ead97d12e) &nbsp; Smaile Implant
-<br></div>
+#  <div align="center"> ![fontLogo01](https://github.com/jobdfhjfghfg/happymallSpring/assets/155034269/c32f3765-883a-4980-be63-497ead97d12e) <br>
+Smaile Implant </div>
 
 ### <div align="center"> [Smaile Implant 바로가기](http://3.34.67.174:8080)</div>
 <br>
