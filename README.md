@@ -111,89 +111,137 @@
 
 ## <span id="main">7. 메인 코드 </span>
 
-* 장바구니 추가 addCart 코드
+* 공정 돌아가는 order 코드
 
 ```
-if (cart == null) {
-            cart = Cart.createCart(member1);
-            cartRepository.save(cart);
-        }
-```
-=> cart에 정보가 없으면 새 cart 생성
-
-<br>
-
-```
-if (cartItem == null) {
-            cartItem = CartItem.createCartItem(cart, inventory, count);
-            cartInventoryRepository.save(cartItem); }
-``` 
-=> 장바구니에 정보가 없으면 새 장바구니를 만들어줌
-
-<br>
-
-```
-else {
-            CartItem updateCartItem = cartItem;
-            updateCartItem.setCart(cartItem.getCart());
-            updateCartItem.setInventory(cartItem.getInventory());
-            updateCartItem.setCount(cart.getCount() + count);
-            updateCartItem.setPrice(inventory.getPrice() * (cart.getCount() + count));
-
-            cartInventoryRepository.save(updateCartItem);
-        }
-```
-=> 장바구니에 정보가 있으면 update시켜줌
-
-<br>
-<br>
-<br>
-
-* 카카오 API 우편번호 검색
-
-```
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-  const btn = document.querySelector("#btn")
-  btn.addEventListener("click", () => {
-    new daum.Postcode({
-      oncomplete: function(data) {
+public long order(long memberId, MaterialName materialName, ProductName productName, int orderQuantity) {
         
-        let fullAddr = '';
-        let extraAddr = '';
+        Member member = memberRepository.findOne(memberId);
 
-        if (data.userSelectedType === 'R') { //도로명주소인 경우
-          fullAddr = data.roadAddress;
-        } else {
-          fullAddr = data.jibunAddress; //지번주소인 경우
-        }
+        
+        Order order = Order.createOrder(member, materialName, productName, orderQuantity);
 
-        if (data.userSelectedType === 'R') {
+```
+=> 로그인 한 계정을 조회, order정보를 담아줌
 
-          if (data.bname !== '') {
-            extraAddr += data.bname;
-          }
+<br>
 
-          if (data.buildingName !== '') {
-            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName); //법정동주소가 비어있지 않으면 빌딩명이랑 붙여서 쓰고 아니면 빌딩명만 쓰기
-          }
+```
+        InventoryOut product = createProductFromOrder(order); //만든 제품에 대한 정보를 담음
 
-          fullAddr += (extraAddr !== '' ? '(' + extraAddr + ')' : '');
 
-        } else {
-          document.getElementById("extraAddr").value = '';
-        }
+        inventoryOutRepository.save(product); //productRepository에 제품이름, 수량을 저장
 
-        document.getElementById('zipcode').value = data.zonecode;
-        document.getElementById("fullAddr").value = fullAddr;
-        document.getElementById("extraAddr").focus();
-      }
-    }).open();
-  });
+        // 저장
+        orderRepository.save(order);
 
-</script>
+```
+ => 출고를 위한 제품 정보 저장
+ 
+<br>
+
 ```
 
-==> 카카오 API를 이용한 우편번호 검색
 
-외부 API를 이용한 주소검색으로 우편번호, 주소 등을 간단히 입력가능하게끔 구현함.
+        if (materialName == MaterialName.TITANIUM) {
+            processService.titaniumCreateProcess(order);
+        } else if(materialName == MaterialName.SUS) {
+            processService.susCreateProcess(order);
+        } else if(materialName == MaterialName.COBALT) {
+            processService.cobaltCreateProcess(order);
+        }
+
+        return order.getId();
+    }
+```
+
+=> 3종류의 원재료인 티타늄, 서스, 코발트의 재료 베이스로 만드는 제품에 대한 코드
+=> 사용자가 원하는 재료로 선택 후 가동 시 해당하는 메서드 실행가능하게끔 하는 목적을 두고 구현
+
+<br>
+
+```
+public void titaniumCreateProcess(Order order) {
+
+        List<InventoryIn> inventories = inventoryRepository.findAll();
+
+        long totalTitaniumQuantity = 0; //티타늄 재고
+        long totalCapsuleQuantity = 0; //포장 캡슐 재고
+        long totalBoxQuantity = 0; //포장 박스 재고
+
+        for (InventoryIn inventory : inventories) {
+            if (inventory.getMaterialName().equals(MaterialName.TITANIUM)) {
+                totalTitaniumQuantity += inventory.getMaterialQuantity();
+            }
+        }
+        
+        for (InventoryIn inventory : inventories) {
+            if (inventory.getMaterialName().equals(MaterialName.CAPSULE)) {
+                totalCapsuleQuantity += inventory.getMaterialQuantity();
+            }
+        }
+
+        for (InventoryIn inventory : inventories) {
+            if (inventory.getMaterialName().equals(MaterialName.BOX)) {
+                totalBoxQuantity += inventory.getMaterialQuantity();
+            }
+        }
+
+        List<InventoryIn> titaniumMaterials1 = inventoryRepository.findByMaterialName(MaterialName.TITANIUM);
+
+        List<InventoryIn> capsuleMaterials1 = inventoryRepository.findByMaterialName(MaterialName.CAPSULE);
+
+        List<InventoryIn> boxMaterials1 = inventoryRepository.findByMaterialName(MaterialName.BOX);
+
+```
+
+=> 티타늄, 캡슐, 박스 재고를 초기화 이후 담아줌
+
+```
+//        1공정 티타늄으로 제조
+        for (int i = 1; i <= order.getOrderQuantity(); i++) {
+            if (totalTitaniumQuantity >= order.getOrderQuantity()) {
+
+                inventoryService.removeStock(MaterialName.TITANIUM); //재고감소
+
+                Process process = Process.create(order);
+
+                processRepository.save(process);
+
+                if (process.getFirstResult().equals("PASS")) {
+                    process.qualityInspection(process); //제 2공정 품질검사 시작
+                    processRepository.save(process);
+
+                    if (process.getSecondResult().equals("PASS")) {
+                        process.washing(process); //제 3공정 세척 시작
+                        processRepository.save(process);
+
+                        if (process.getThirdResult().equals("PASS")) {
+                            process.packing(order, process); //제 4공정 포장 시작
+//                            포장캡슐 재고 확인
+                            if (totalCapsuleQuantity >= order.getOrderQuantity()) {
+                                inventoryService.removeStock(MaterialName.CAPSULE);
+
+//                                 포장박스 재고 확인
+                                if (totalBoxQuantity >= order.getOrderQuantity()) {
+                                    inventoryService.removeStock(MaterialName.BOX);
+                                } else {
+                                    throw new NotEnoughBoxStockException("포장 박스 재고가 부족합니다. 재고 확인 후 재가동하세요.");
+                                }
+                            } else {
+                                throw new NotEnoughCapsuleStockException("포장 캡슐 재고가 부족합니다. 재고 확인 후 재가동하세요.");
+                            }
+                            processRepository.save(process);
+                        }
+                    }
+                    productService.createProduct();
+                }
+            } else {
+                throw new NotEnoughTitaniumStockException("티타늄 재고가 부족합니다. 재고 확인 후 재가동하세요.");
+
+            }
+        }
+    }
+```
+=> 1 ~ 4 공정 가동하는 메서드 구현 1공정인 제조공정에서 티타늄 사용, 4공정인 포장공정에서 포장박스와 캡슐을 사용함.
+=> 각 재고가 부족 시 에러를 던지게 끔 구현
