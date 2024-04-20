@@ -10,10 +10,11 @@
 <summary>목차</summary>
 
 1. [프로젝트 소개](#intro)
-2. [기술 및 개발 환경](#dex)
-3. [개발 일정](#schedule)
-4. [백엔드 구현 기능](#feature)
-5. [메인 코드](#main)
+2. [팀원 소개](#team)
+3. [기술 및 개발 환경](#dex)
+4. [개발 일정](#schedule)
+5. [백엔드 구현 기능](#feature)
+6. [메인 코드](#main)
 
 </details>
 <br>
@@ -28,7 +29,15 @@
 <br>
 <br>
 
-## <span id="dex">2. 기술 및 개발 환경</span>
+## <span id="intro">2. 팀원 소개</span>
+
+![스크린샷 2024-04-20 222004](https://github.com/jobdfhjfghfg/implant/assets/155034269/609228fe-80df-4fbd-8d7f-8e19e8ffd738)
+
+
+<br>
+<br>
+
+## <span id="dex">3. 기술 및 개발 환경</span>
 
 <div align="center">
 
@@ -40,18 +49,17 @@
 <br>
 <br>
 
-## <span id="schedule">3. 개발 일정</span>
+## <span id="schedule">4. 개발 일정</span>
 
 <div align="center">
   
 | 개발 일정 | 개발 내용 |
 | :----: | :----: |
-| 1.22 ~ 1.24 <br><hr> 1.25 ~ 1.29 <br><hr> 1.30 ~ 2.8 <br><hr> 3.25 ~ 4.15 <br> | 프로젝트 기획 <br><hr> 와이어 프레임 구상 <br><hr> 메인 페이지 구현 <br><hr> 백엔드 기능 구현 <br>
+| 2.13 ~ 2.16 <br><hr> 2.19 ~ 2.27 <br><hr> 2.28 ~ 3.11 <br><hr> 3.12 ~ 3.15 <br> | 프로젝트 기획 <br><hr> 도메인 모델 설계 <br><hr> 메인 기능 설계 <br><hr> Trouble Shooting 및 보완 <br>
 </div>
 
-* 학원에서 진행한 개인프로젝트라 1 ~ 2월 사이에 진행한 프론트 단 구축을 완료했고 팀 프로젝트 완성 이후 프로젝트 경험을 토대로 3 ~ 4월 사이에 백엔드 파트 구축
 
-## <span id="feature">4. 백엔드 구현 기능</span>
+## <span id="feature">5. 백엔드 구현 기능</span>
 
 <div align="center">
   
@@ -61,7 +69,7 @@
 </div>
 
 
-## <span id="main">5. 메인 코드 </span>
+## <span id="main">6. 메인 코드 </span>
 
 * 장바구니 추가 addCart 코드
 
