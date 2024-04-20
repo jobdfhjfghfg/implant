@@ -125,6 +125,7 @@ public long order(long memberId, MaterialName materialName, ProductName productN
 => 로그인 한 계정을 조회, order정보를 담아줌
 
 <br>
+<br>
 
 ```
         InventoryOut product = createProductFromOrder(order); //만든 제품에 대한 정보를 담음
@@ -138,6 +139,7 @@ public long order(long memberId, MaterialName materialName, ProductName productN
 ```
  => 출고를 위한 제품 정보 저장
  
+<br>
 <br>
 
 ```
@@ -158,6 +160,7 @@ public long order(long memberId, MaterialName materialName, ProductName productN
 => 3종류의 원재료인 티타늄, 서스, 코발트의 재료 베이스로 만드는 제품에 대한 코드
 => 사용자가 원하는 재료로 선택 후 가동 시 해당하는 메서드 실행가능하게끔 하는 목적을 두고 구현
 
+<br>
 <br>
 
 ```
@@ -196,6 +199,9 @@ public void titaniumCreateProcess(Order order) {
 ```
 
 => 티타늄, 캡슐, 박스 재고를 초기화 이후 담아줌
+
+<br>
+<br>
 
 ```
 //        1공정 티타늄으로 제조
@@ -245,3 +251,5 @@ public void titaniumCreateProcess(Order order) {
 ```
 => 1 ~ 4 공정 가동하는 메서드 구현 1공정인 제조공정에서 티타늄 사용, 4공정인 포장공정에서 포장박스와 캡슐을 사용함.
 => 각 재고가 부족 시 에러를 던지게 끔 구현
+<br>
+<br>
