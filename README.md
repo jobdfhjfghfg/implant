@@ -29,7 +29,7 @@
 <br>
 <br>
 
-## <span id="intro">2. 팀원 소개</span>
+## <span id="team">2. 팀원 소개</span>
 
 ![스크린샷 2024-04-20 222004](https://github.com/jobdfhjfghfg/implant/assets/155034269/609228fe-80df-4fbd-8d7f-8e19e8ffd738)
 
@@ -65,7 +65,7 @@
   
 | 기능 목록 | 상세 기능 |
 | :----: | :----: |
-|  <br> 회원 기능 <br><hr>  <br> 상품 등록 기능 <br><hr> <br>주문 기능<br><hr> 장바구니 기능 <br><hr> 결제 기능 <br><hr> | 1. 회원가입 <br> 2. 로그인 <br><hr> 1. 상품 등록 <br> 2. 상품 재고 확인 <br><hr> 1. 관리자 주문 기능 <br> 2. 회원 주문 기능(미완) <br><hr> 1. 장바구니 담기 <br><hr> 1. 상품 결제 기능(미완) <br><hr>
+|  <br><br> 회원 기능 <br><hr>  <br> 제품 등록 기능 <hr><br>출고 기능<br><hr> 공정현황 <br><hr> | 1. 회원가입 <br> 2. 로그인 <br><hr> 1. 원재료 등록 <br> 2. 제품 재고 확인 <br><hr> 3. BOM 등록 및 조회 <br><hr> 1. 제품 출고 <br><hr> 1. 공정별 에러 확인 <br> 2. 에러율 확인 <br><hr>
 </div>
 
 
