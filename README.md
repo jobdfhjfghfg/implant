@@ -163,6 +163,7 @@ public long order(long memberId, MaterialName materialName, ProductName productN
 <br>
 <br>
 
+* process 티타늄 제조 메서드
 ```
 public void titaniumCreateProcess(Order order) {
 
