@@ -1,6 +1,6 @@
-#  <div align="center"> ![fontLogo01](https://github.com/jobdfhjfghfg/happymallSpring/assets/155034269/c32f3765-883a-4980-be63-497ead97d12e) <br> Smaile Implant </div>
+#  <div align="center"> ![fontLogo01](https://github.com/jobdfhjfghfg/happymallSpring/assets/155034269/c32f3765-883a-4980-be63-497ead97d12e) <br> Smile Implant </div>
 
-### <div align="center"> [Smaile Implant 바로가기](http://3.34.67.174:8080)</div>
+### <div align="center"> [Smile Implant 바로가기](http://3.34.67.174:8080)</div>
 <br>
 <div align="center">testId : admin <br>
                     password : test123 </div>
@@ -19,7 +19,11 @@
 <br>
 
 ## <span id="intro">1. 프로젝트 소개</span>
-<b> HappyMall은 애완동물 쇼핑몰로 애견인들에게 필요한 상품들을 제공하는 홈페이지입니다. </b>
+<b> Smile Implant는 생산 공정 관리 시스템을 구축한 임플란트 생산공정 시스템입니다. </b>
+
+* 자동화 생산공정으로 효율적인 재고관리를 할 수 있습니다.
+* 에러원인 등을 한눈에 파악할 수 있습니다.
+* 파이차트를 통한 에러율 체크를 할 수 있습니다.
 
 <br>
 <br>
