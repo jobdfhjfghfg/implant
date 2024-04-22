@@ -7,7 +7,7 @@
 <br>
 
 <details>
-<summary>목차</summary>
+<summary><h3>목차</h3></summary>
 
 1. [프로젝트 소개](#intro)
 2. [팀원 소개](#team)
