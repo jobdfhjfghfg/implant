@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}"/>
+<body>
+<div class="container">
+    <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+</div>
+<div class="container-fluid">
+    <div class="row py-4 d-flex justify-content-center">
+        <div class="col-lg-2 py-5 mt-3">
+            <hr class="my-3">
+            <div class="btn-group-vertical  col-sm-4" role="group" aria-label="Vertical button group" >
+                <div class="row">
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            기본정보
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/product-info">제품정보</a></li>
+                            <li><a class="dropdown-item" href="/process-info">공정정보</a></li>
+                            <li><a class="dropdown-item" href="/workOrder">작업지시</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            자재관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/material/process">공정계획</a></li>
+                            <li><a class="dropdown-item" href="/inventorys">입고현황</a></li>
+                            <li><a class="dropdown-item" href="/boms">BOM</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            생산관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/machineStatus">설비 현황</a></li>
+                            <li><a class="dropdown-item" href="/product/view">공정현황</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            출하관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" aria-current="page" href="/productList">재고현황</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="/inventorysOut">출고현황</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="custom-btn btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            회원관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/members">
+                                회원목록
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-2">
+        </div>
+        <div class="col">
+            <div class="my-5">
+                <div class="row">
+                    <div class="col-md text-center mb-3">
+                        <h4>제1공정</h4>
+                        <canvas id="myChart1"></canvas>
+                        <p class="my-2">
+                            <span th:text="'에러 : ' + ${errorTotalResult1}"></span>
+                            <span th:text="' 정상 : ' + ${okTotalResult1}"></span>
+                            <span th:text="' total : ' + ${sumTotalResult1}"></span>
+                        </p>
+                    </div>
+                    <div class="col-md text-center mb-3">
+                        <h4>제2공정</h4>
+                        <canvas id="myChart2"></canvas>
+                        <p class="my-2">
+                            <span th:text="'에러 : ' + ${errorTotalResult2}"></span>
+                            <span th:text="' 정상 : ' + ${okTotalResult2}"></span>
+                            <span th:text="' total : ' + ${sumTotalResult2}"></span>
+                        </p>
+                    </div>
+                    <div class="col-md text-center">
+                        <h4>제3공정</h4>
+                        <canvas id="myChart3"></canvas>
+                        <p class="my-2">
+                            <span th:text="'에러 : ' + ${errorTotalResult3}"></span>
+                            <span th:text="' 정상 : ' + ${okTotalResult3}"></span>
+                            <span th:text="' total : ' + ${sumTotalResult3}"></span>
+                        </p>
+                    </div>
+                    <div class="col-md text-center">
+                        <h4>제4공정</h4>
+                        <canvas id="myChart4"></canvas>
+                        <p class="my-2">
+                            <span th:text="'에러 : ' + ${errorTotalResult4}"></span>
+                            <span th:text="' 정상 : ' + ${okTotalResult4}"></span>
+                            <span th:text="' total : ' + ${sumTotalResult4}"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+<script th:inline="javascript">
+    const ctx1 = document.getElementById('myChart1');
+    const ctx2 = document.getElementById('myChart2');
+    const ctx3 = document.getElementById('myChart3');
+    const ctx4 = document.getElementById('myChart4');
+
+    var error1 = /*[[${errorTotalResult1}]]*/0;
+    var ok1 = /*[[${okTotalResult1}]]*/0;
+    var error2 = /*[[${errorTotalResult2}]]*/0;
+    var ok2 = /*[[${okTotalResult2}]]*/0;
+    var error3 = /*[[${errorTotalResult3}]]*/0;
+    var ok3 = /*[[${okTotalResult3}]]*/0;
+    var error4 = /*[[${errorTotalResult4}]]*/0;
+    var ok4 = /*[[${okTotalResult4}]]*/0;
+
+    new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: ['에러', '정상'],
+            datasets: [{
+                label: '# of Votes',
+                data: [error1,ok1],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    display:false
+                }
+            }
+        }
+    });
+    new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: ['에러', '정상'],
+            datasets: [{
+                label: '# of Votes',
+                data: [error2,ok2],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    display:false
+                }
+            }
+        }
+    });
+    new Chart(ctx3, {
+        type: 'pie',
+        data: {
+            labels: ['에러', '정상'],
+            datasets: [{
+                label: '# of Votes',
+                data: [error3,ok3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    display:false
+                }
+            }
+        }
+    });
+    new Chart(ctx4, {
+        type: 'pie',
+        data: {
+            labels: ['에러', '정상'],
+            datasets: [{
+                label: '# of Votes',
+                data: [error4,ok4],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    display:false
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@500;700&display=swap');
+
+body {
+    font-family: 'Noto Sans KR',
+    sans-serif;
+}
+
+h1, h2, h3, h4, .logo-font {
+    font-family: 'Sunflower', sans-serif;
+    color: #beee62 !important;
+}
+hr {
+    color: white;
+}
+
+/* 네비게이션 영역 */
+.nav-link.active,
+.nav-link:hover,
+.logo-font{
+    color: #f4743b !important;
+    font-weight: bold;
+}
+
+nav.navbar, .sidebar {
+    background-color: #3c6e71 !important;
+    color: #beee62 !important;
+}
+
+.login1 {
+    width: 300px;
+}
+
+
+.card1 {
+    width: 520px;
+    height: 750px;
+    border-radius: 5px;
+    margin: 0 auto;
+}
+
+.card2 {
+    text-align: center;
+    padding-bottom: 3px;
+}
+
+
+.form-group {
+    width: 100%;
+}
+
+.form-control {
+    width: 480px; /* 원하는 너비로 설정 */
+    margin: 0 auto; /* 수평 가운데 정렬 */
+    
+}
+
+.form-group label {
+    width: 100px;
+    display: inline-block;
+    margin-right: 20px;
+    margin-left: 10px;
+    text-align: left;
+}
+
+

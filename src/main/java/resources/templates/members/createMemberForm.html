@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}">
+    <link rel="stylesheet" href="/css/style-membership.css">
+</head>
+<style>
+    .fieldError {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+</style>
+<body>
+<div class="container">
+    <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+    <div class="py-5 border-bottom">
+        <h1 class="fw-bold text-center text-muted py-5">회원가입</h1>
+    </div>
+    <form role="form"  th:object="${memberForm}" action="/members/new" method="post" class="py-4 my-4">
+        <div class="form-group row g-3 py-2 justify-content-center align-items-center">
+            <div class="col-md-1 col-sm-2 pt-2">
+                <label th:for="id" class="col-form-label">아이디</label>
+            </div>
+            <div class="col-md-5 col-sm-4">
+                <input type="text" th:field="*{loginId}" class="form-control shadow-sm"
+                       placeholder="아이디를 입력하세요" autofocus>
+                <p th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}" class="fieldError"></p>
+            </div>
+        </div>
+        <div class="form-group py-2 row g-3 justify-content-center align-items-center">
+            <div class="col-md-1 col-sm-2">
+                <label th:for="name" class="col-form-label">이름</label>
+            </div>
+            <div class="col-md-5 col-sm-4">
+                <input type="text" th:field="*{name}" class="form-control shadow-sm" placeholder="이름을 입력하세요">
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError"></p>
+            </div>
+        </div>
+        <div class="form-group py-2 row g-3 justify-content-center align-items-center">
+            <div class="col-md-1 col-sm-2">
+                <label th:for="password" class="col-form-label">비밀번호</label>
+            </div>
+            <div class="col-md-5 col-sm-4">
+                <input type="password" th:field="*{password}" class="form-control shadow-sm"
+                       placeholder="비밀번호를 입력하세요. (대소문자와 숫자 포함)">
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError"></p>
+
+            </div>
+        </div>
+        <div class="form-group py-2 row g-3 justify-content-center align-items-center">
+            <div class="col-md-1 col-sm-2">
+                <label th:for="position" class="col-form-label">직급</label>
+            </div>
+            <div class="col-md-5 col-sm-4">
+                <select class="form-control shadow-sm" id="position" name="position" type="text" th:field="*{position}">
+                    <option value="">직급을 선택하세요</option>
+                    <option value="staff" class="fw-bold">사원</option>
+                    <option value="chief" class="fw-bold">주임</option>
+                    <option value="Assistant Manager" class="fw-bold">대리</option>
+                    <option value="Manager" class="fw-bold">과장</option>
+                    <option value="Deputy General Manager" class="fw-bold">차장</option>
+                    <option value="Department Manager" class="fw-bold">부장</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group py-2 row g-3 justify-content-center align-items-center">
+            <div class="col-md-1 col-sm-2">
+                <label th:for="department" class="col-form-label">부서</label>
+            </div>
+            <div class="col-md-5 col-sm-4">
+                <!--                <input type="text" th:field="*{department}" class="form-control shadow-sm" placeholder="부서를 선택하세요">-->
+                <select th:field="*{department}" class="form-control shadow-sm" id="department" name="department" placeholder="부서를 선택하세요">
+                    <option value="">부서를 선택하세요</option>
+                    <option value="Materials" class="fw-bold">자재관리</option>
+                    <option value="Production" class="fw-bold">생산관리</option>
+                    <option value="Quality" class="fw-bold">품질관리</option>
+                    <option value="Shipping" class="fw-bold">출하관리</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group py-2 mb-3 row g-3 justify-content-center align-items-center">
+            <div class="col-md-1 col-sm-2">
+                <label th:for="phone" class="col-form-label">전화번호</label>
+            </div>
+            <div class="col-md-5 col-sm-4">
+                <input type="text" th:field="*{phone}" class="form-control shadow-sm" placeholder="전화번호">
+            </div>
+        </div>
+
+        <div id="join" class="form-group py-2 pt-4 row g-3 justify-content-center align-items-center">
+            <button type="submit" class=" btn btn-primary col-3 col-md-6">가입하기</button>
+        </div>
+        <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+            <span th:text="${errorMessage}"></span>
+        </div>
+
+    </form>
+    <div class="py-5 my-5" th:insert="~{fragments/footer :: footer}"></div>
+</div>
+</body>
+</html>

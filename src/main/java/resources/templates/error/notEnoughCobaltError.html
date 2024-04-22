@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}"/>
+<body>
+<div class="container">
+  <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+</div>
+<div class="container-fluid">
+  <div class="row py-4 d-flex justify-content-center">
+    <div class="col-lg-2 py-5 mt-3">
+      <hr class="my-3">
+      <div class="btn-group-vertical  col-sm-4" role="group" aria-label="Vertical button group" >
+        <div class="row">
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              기본정보
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" href="/product-info">제품정보</a></li>
+              <li><a class="dropdown-item" href="/process-info">공정정보</a></li>
+              <li><a class="dropdown-item" href="/workOrder">작업지시</a></li>
+            </ul>
+          </div>
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              자재관리
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" href="/material/process">공정계획</a></li>
+              <li><a class="dropdown-item" href="/inventorys">입고현황</a></li>
+              <li><a class="dropdown-item" href="/boms">BOM</a></li>
+
+            </ul>
+          </div>
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              생산관리
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" href="/machineStatus">설비 현황</a></li>
+              <li><a class="dropdown-item" href="/product/view">공정현황</a></li>
+
+            </ul>
+          </div>
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              출하관리
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" aria-current="page" href="/productList">재고현황</a></li>
+              <li><a class="dropdown-item" aria-current="page" href="/inventorysOut">출고현황</a></li>
+            </ul>
+          </div>
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="custom-btn btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              회원관리
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" href="/members">
+                회원목록
+              </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <hr class="my-2">
+    </div>
+    <div class="col">
+      <div class="py-5 mt-5">
+        <div class="col d-flex justify-content-center align-items-center">
+          <div class="card" style="width: 25rem;">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-info-circle-fill text-danger p-2"></i> 재고가 없습니다.</h5>
+              <hr>
+              <!-- 에러 메시지를 출력하는 부분 -->
+              <p class="card-text py-3" th:text="${cobaltErrorMessage}"></p>
+              <p><a href="/" th:onclick="|location.href='@{/}'|" class="btn btn-warning">홈으로 이동하기</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

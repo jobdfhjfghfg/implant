@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}"/>
+<body>
+<div class="container">
+    <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+</div>
+<div class="container-fluid">
+    <div class="row py-4 d-flex justify-content-center">
+        <div class="col-lg-2 py-5 mt-3">
+            <hr class="my-3">
+            <div class="btn-group-vertical  col-sm-4" role="group" aria-label="Vertical button group" >
+                <div class="row">
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            기본정보
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/product-info">제품정보</a></li>
+                            <li><a class="dropdown-item" href="/process-info">공정정보</a></li>
+                            <li><a class="dropdown-item" href="/workOrder">작업지시</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            자재관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/material/process">공정계획</a></li>
+                            <li><a class="dropdown-item" href="/inventorys">입고현황</a></li>
+                            <li><a class="dropdown-item" href="/boms">BOM</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            생산관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/machineStatus">설비 현황</a></li>
+                            <li><a class="dropdown-item" href="/product/view">공정현황</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            출하관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" aria-current="page" href="/productList">재고현황</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="/inventorysOut">출고현황</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="custom-btn btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            회원관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/members">
+                                회원목록
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-2">
+        </div>
+        <div class="col">
+            <div class="py-5 mt-5">
+                <h2 class="py-4">입고 등록</h2>
+                <form role="form" th:Object="${form}" method="post" class="py-2">
+                    <div class="my-2">
+                        <label class="form-label" th:for="*{whNum}">입고번호</label>
+                        <input class="form-control"  th:field="*{whNum}" readonly  th:value="*{whNum}" disabled>
+                    </div>
+                    <div class="my-2">
+                        <label class="form-label" th:for="*{materialCode}">품목번호</label>
+                        <input class="form-control" placeholder="품목번호를 입력하세요" th:field="*{materialCode}">
+                    </div>
+                    <div class="my-2">
+                        <label class="form-label" th:for="*{materialName}">품목명</label>
+                        <select th:field="*{materialName}" class="form-control">
+                            <option value="">품목명을 선택하세요</option>
+                            <option th:each="materialName:${T(project.teamproject.domain.MaterialName).values()}" th:value="${materialName}" th:text="${materialName}"></option>
+                        </select>
+                    </div>
+                    <div class="my-2">
+                        <label class="form-label" th:for="*{clientName}">거래처명</label>
+                        <input class="form-control" placeholder="거래처명 입력하세요" th:field="*{clientName}">
+                    </div>
+                    <div class="my-2">
+                        <label class="form-label" th:for="*{whQuantity}">입고수량</label>
+                        <input class="form-control" placeholder="수량을 입력하세요" th:field="*{whQuantity}">
+                    </div>
+                    <div class="my-2">
+                        <label class="form-label" th:for="*{date}">입고일자</label>
+                        <input class="form-control" placeholder="입고일을 선택하세요" th:field="*{date}">
+                    </div>
+                    <div class="my-2">
+                        <label class="form-label" th:for="*{materialQuantity}">재고수량</label>
+                        <input class="form-control" placeholder="수량을 입력하세요" th:field="*{materialQuantity}" disabled>
+                    </div>
+                    <div class="my-2">
+                        <label class="form-label" th:for="*{manager}">입고담당자</label>
+                        <input class="form-control" placeholder="담당자를 선택하세요" th:field="*{manager}">
+                    </div>
+                    <button type="submit" class="btn btn-warning btn-sm">입력</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

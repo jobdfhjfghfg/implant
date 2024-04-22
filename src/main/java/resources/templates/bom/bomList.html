@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}"/>
+<body>
+<div class="container">
+    <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+</div>
+<div class="container-fluid">
+    <div class="row py-4 d-flex justify-content-center">
+        <div class="col-lg-2 py-5 mt-3">
+            <hr class="my-3">
+            <div class="btn-group-vertical  col-sm-4" role="group" aria-label="Vertical button group" >
+                <div class="row">
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            기본정보
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/product-info">제품정보</a></li>
+                            <li><a class="dropdown-item" href="/process-info">공정정보</a></li>
+                            <li><a class="dropdown-item" href="/workOrder">작업지시</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            자재관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/material/process">공정계획</a></li>
+                            <li><a class="dropdown-item" href="/inventorys">입고현황</a></li>
+                            <li><a class="dropdown-item" href="/boms">BOM</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            생산관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/machineStatus">설비 현황</a></li>
+                            <li><a class="dropdown-item" href="/product/view">공정현황</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            출하관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" aria-current="page" href="/productList">재고현황</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="/inventorysOut">출고현황</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="custom-btn btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            회원관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/members">
+                                회원목록
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-2">
+        </div>
+        <div class="col">
+            <div class="py-5 mt-5">
+                <div class="d-flex justify-content-end">
+                    <a href="bom/new" class="btn btn-secondary mx-2" role="button">BOM 등록</a>
+                    <a href="bom/newmaterial" class="btn btn-secondary mx-2" role="button">BOM(하위) 등록</a>
+                </div>
+                <div class="container">
+                    <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+                    <h2 class="py-4">BOM</h2>
+                    <form action="/search" method="GET">
+                        <input type="text" name="query" placeholder="제품명을 입력하세요...">
+                        <button type="submit">검색</button>
+                    </form>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th></th>
+                            <th>품목코드</th>
+                            <th>품목명</th>
+                            <th>라우팅명</th>
+                            <th>품목유형</th>
+                            <th>기준단위</th>
+                            <th>BOM(수)</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product, iterStat : ${boms}">
+                            <td th:text="${product.id}"></td>
+                            <td><input type="checkbox" id="checkbox-[[${iterStat.index}]]" onchange="toggleSubMenu(this)">
+                            </td>
+                            <td th:text="${product.productCode}"></td>
+                            <td th:text="${product.productName}"></td>
+                            <td th:text="${product.routingName}"></td>
+                            <td th:text="${product.productType}"></td>
+                            <td th:text="${product.unit}"></td>
+                            <td th:text="${product.bommaterial}"></td>
+                            <td>
+                                <a href="#" th:href="@{/product/{id}/edit(id=${product.id})}" class="btn btn-warning" role="button">수정</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="container">
+                        <h2 class="py-4">BOM(하위)</h2>
+                        <table id="subTable" class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>공정#</th>
+                                <th>투입공정</th>
+                                <th>품목코드</th>
+                                <th>품목명</th>
+                                <th>품목유형</th>
+                                <th>기준단위</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="material : ${bomm}">
+                                <td th:text="${material.id}"></td>
+                                <td th:text="${material.processes}"></td>
+                                <td th:text="${material.entryProcess}"></td>
+                                <td th:text="${material.materialCode}"></td>
+                                <td th:text="${material.materialName}"></td>
+                                <td th:text="${material.materialType}"></td>
+                                <td th:text="${material.unit}"></td>
+                                <td>
+                                    <a href="#" th:href="@{/material/{id}/edit(id=${material.id})}" class="btn btn-warning" role="button">수정</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div th:insert="~{fragments/footer :: footer}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                <script src="scripts.js"></script>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    $(document).ready(function() {
+                        $('input[type="checkbox"]').change(function() {
+                            if (this.checked) {
+                                var productName = $(this).closest('tr').find('td:eq(3)').text();
+                                // filterSubTable(productName);
+                                if(productName == "FIXTURE") {
+                                    filterSubTable("TITANIUM")
+                                }
+                                else if(productName == "ABUTMENT"){
+                                    filterSubTable("SUS")
+                                }
+                                else {
+                                    filterSubTable("COBALT")
+                                }
+                            } else {
+                                resetSubTable();
+                            }
+                        });
+
+                        function filterSubTable(productName) {
+                            $('#subTable tbody tr').each(function() {
+                                var rowProductName = $(this).find('td:eq(4)').text();
+                                if (rowProductName !== productName) {
+                                    $(this).hide();
+                                } else {
+                                    $(this).show();
+                                }
+                            });
+                        }
+
+                        function resetSubTable() {
+                            $('#subTable tbody tr').show();
+                        }
+                    });
+
+                </script>
+</body>
+</html>

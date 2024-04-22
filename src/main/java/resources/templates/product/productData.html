@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}">
+</head>
+<body>
+<div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- 네비게이션 시작-->
+
+<!-- 네비게이션 영역 끝-->
+<!-- 거래처 목록 리스트 시작-->
+<div class="container-fluid">
+    <div class="row py-4 d-flex justify-content-center">
+        <div class="col-lg-2 py-5 mt-3">
+            <hr class="my-3">
+            <div class="btn-group-vertical  col-sm-4" role="group" aria-label="Vertical button group" >
+                <div class="row">
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            기본정보
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/product-info">제품정보</a></li>
+                            <li><a class="dropdown-item" href="/process-info">공정정보</a></li>
+                            <li><a class="dropdown-item" href="/workOrder">작업지시</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            자재관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/material/process">공정계획</a></li>
+                            <li><a class="dropdown-item" href="/inventorys">입고현황</a></li>
+                            <li><a class="dropdown-item" href="/boms">BOM</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            생산관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/machineStatus">설비 현황</a></li>
+                            <li><a class="dropdown-item" href="/product/view">공정현황</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            출하관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" aria-current="page" href="/productList">재고현황</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="/inventorysOut">출고현황</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="custom-btn btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            회원관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/members">
+                                회원목록
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-2">
+        </div>
+        <div class="col-lg-10 py-5 mt-5 ">
+            <h2 class="fw-bold text-center">공정 내역</h2>
+            <div class="my-5">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 text-center" style="width: 40%">
+                            <h4>제1공정</h4>
+                            <canvas id="myChart1"></canvas>
+                            <p class="my-2">
+                                <span th:text="'합계 : ' + ${sumTotalResult1}"></span>
+                                <span th:text="' 에러 : ' + ${sumErrorResult1}"></span>
+                                <span th:text="' 통과 : ' + ${sumPassResult1}"></span>
+                                <span th:text="' 부분통과 : ' + ${sumPartialPassResult1}"></span>
+                            </p>
+                        </div>
+                        <div class="col-lg-6 text-center" style="width: 40%">
+                            <h4>제2공정 기계</h4>
+                            <canvas id="myChart2"></canvas>
+                            <p class="my-2">
+                                <span th:text="'합계 : ' + ${sumTotalResult2}"></span>
+                                <span th:text="' 에러 : ' + ${sumErrorResult2}"></span>
+                                <span th:text="' 통과 : ' + ${sumPassResult2}"></span>
+                                <span th:text="' 부분통과 : ' + ${sumPartialPassResult2}"></span>
+                            </p>
+                        </div>
+                        <div class="row justify-content-center pt-5">
+                            <div class="col-lg-6 text-center" style="width: 40%">
+                                <h4>제3공정 기계</h4>
+                                <canvas id="myChart3"></canvas>
+                                <p class="my-2">
+                                    <span th:text="'합계 : ' + ${sumTotalResult3}"></span>
+                                    <span th:text="' 에러 : ' + ${sumErrorResult3}"></span>
+                                    <span th:text="' 통과 : ' + ${sumPassResult3}"></span>
+                                    <span th:text="' 부분통과 : ' + ${sumPartialPassResult3}"></span>
+                                </p>
+                            </div>
+                            <div class="col-lg-6 text-center" style="width: 40%">
+                                <h4>제4공정 기계</h4>
+                                <canvas id="myChart4"></canvas>
+                                <p class="my-2">
+                                    <span th:text="'합계 : ' + ${sumTotalResult4}"></span>
+                                    <span th:text="' 에러 : ' + ${sumErrorResult4}"></span>
+                                    <span th:text="' 통과 : ' + ${sumPassResult4}"></span>
+                                    <span th:text="' 부분통과 : ' + ${sumPartialPassResult4}"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    </div>-->
+<!-- 거래처 목록 리스트 끝-->
+<div th:insert="~{fragments/footer :: footer}"></div>
+<script th:inline="javascript">
+    const ctx1 = document.getElementById('myChart1');
+    const ctx2 = document.getElementById('myChart2');
+    const ctx3 = document.getElementById('myChart3');
+    const ctx4 = document.getElementById('myChart4');
+
+    var partOneTotal = /*[[${sumTotalResult1}]]*/0;
+    var partOneError = /*[[${sumErrorResult1}]]*/0;
+    var partOnePass = /*[[${sumPassResult1}]]*/0;
+    var partOnePartialPass = /*[[${sumPartialPassResult1}]]*/0;
+
+    var partTwoTotal = /*[[${sumTotalResult2}]]*/0;
+    var partTwoError = /*[[${sumErrorResult2}]]*/0;
+    var partTwoPass = /*[[${sumPassResult2}]]*/0;
+    var partTwoPartialPass = /*[[${sumPartialPassResult2}]]*/0;
+
+    var partThreeTotal = /*[[${sumTotalResult3}]]*/0;
+    var partThreeError = /*[[${sumErrorResult3}]]*/0;
+    var partThreePass = /*[[${sumPassResult3}]]*/0;
+    var partThreePartialPass = /*[[${sumPartialPassResult3}]]*/0;
+
+    var partFourTotal = /*[[${sumTotalResult4}]]*/0;
+    var partFourError = /*[[${sumErrorResult4}]]*/0;
+    var partFourPass = /*[[${sumPassResult4}]]*/0;
+    var partFourPartialPass = /*[[${sumPartialPassResult4}]]*/0;
+
+    new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: ['총합', '에러', '통과', '부분 통과'],
+            datasets: [{
+                label: '# of Votes',
+                data: [partOneTotal, partOneError,partOnePass, partOnePartialPass],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    // beginAtZero: true,
+                    display:false  // y축 눈금 표시 여부를 false로 설정합니다.
+                }
+            }
+        }
+    });
+    new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: ['총합', '에러', '통과', '부분 통과'],
+            datasets: [{
+                label: '# of Votes',
+                data: [partTwoTotal, partTwoError,partTwoPass, partTwoPartialPass],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    display:false  // y축 눈금 표시 여부를 false로 설정합니다.
+                }
+            }
+        }
+    });
+    new Chart(ctx3, {
+        type: 'pie',
+        data: {
+            labels: ['총합', '에러', '통과', '부분 통과'],
+            datasets: [{
+                label: '# of Votes',
+                data: [partThreeTotal, partThreeError,partThreePass, partThreePartialPass],
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    display:false  // y축 눈금 표시 여부를 false로 설정합니다.
+                }
+            }
+        }
+    });
+
+    new Chart(ctx4, {
+        type: 'pie',
+        data: {
+            labels: ['총합', '에러', '통과', '부분 통과'],
+            datasets: [{
+                label: '# of Votes',
+                data: [partFourTotal, partFourError,partFourPass, partFourPartialPass],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    display:false  // y축 눈금 표시 여부를 false로 설정합니다.
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

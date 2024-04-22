@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}" >
+    <link rel="stylesheet" href="/css/loginForm.css">
+</head>
+<style>
+    .fieldError {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+</style>
+<body>
+<div class="container">
+    <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+
+    <form id="loginForm" role="form" th:object="${loginForm}" method="post" class="p-2 py-5 mt-5">
+        <div class="container w-100 m-auto text-center">
+            <div class="form-group row py-2  justify-content-center  align-items-center">
+                <div class="py-5 my-5"><img class="img-fluid ms-1" src="/images/fontLogo01.jpg"></div>
+                <div class="col-md-1 col-sm-3">
+                    <label th:for="loginId" class="form-label d-none d-sm-block">아이디</label>
+                </div>
+                <div class="col-md-3 col-sm-9">
+                    <input type="text" th:field="*{loginId}" class="form-control shadow-sm"
+                           placeholder="아이디를 입력하세요">
+                </div>
+                <p th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}" class="fieldError"></p>
+            </div>
+            <div class="form-group row py-2  justify-content-center align-items-center">
+                <div class="col-md-1 col-sm-3">
+                    <label th:for="password" class="form-label d-none d-sm-block">비밀번호</label>
+                </div>
+                <div class="col-md-3 col-sm-9">
+                    <input type="password" th:field="*{password}" class="form-control shadow-sm"
+                           placeholder="비밀번호를 입력하세요">
+                </div>
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError"></p>
+            </div>
+            <div class="form-group row justify-content-center  align-items-center">
+                <div class="col-sm-3">
+                    <a href="#" th:onclick="submitForm()"><img src="./images/login2.png" class="py-2"></a>
+                </div>
+                <div class="col-sm-2 pt-4 me-1">
+                    <a class="btn btn-outline-success btn-sm" href="/members/new"><i class="bi bi-person-plus-fill"> 회원가입</i></a>
+                </div>
+            </div>
+
+        </div>
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="fieldError text-center" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+        </div>
+    </form>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</div>
+</body>
+<script>
+    // Enter 키 감지 이벤트
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // 기본 동작 막기
+            submitForm();
+        }
+    });
+
+    function submitForm() {
+        document.getElementById('loginForm').submit();
+    }
+</script>
+
+</html>

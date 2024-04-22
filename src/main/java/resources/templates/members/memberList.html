@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}">
+</head>
+<body>
+<div class="container">
+  <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+</div>
+<div class="container-fluid">
+  <div class="row py-4 d-flex justify-content-center">
+    <div class="col-lg-2 py-5 mt-3">
+      <hr class="my-3">
+      <div class="btn-group-vertical  col-sm-4" role="group" aria-label="Vertical button group" >
+        <div class="row">
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              기본정보
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" href="/product-info">제품정보</a></li>
+              <li><a class="dropdown-item" href="/process-info">공정정보</a></li>
+              <li><a class="dropdown-item" href="/workOrder">작업지시</a></li>
+            </ul>
+          </div>
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              자재관리
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" href="/material/process">공정계획</a></li>
+              <li><a class="dropdown-item" href="/inventorys">입고현황</a></li>
+              <li><a class="dropdown-item" href="/boms">BOM</a></li>
+
+            </ul>
+          </div>
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              생산관리
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" href="/machineStatus">설비 현황</a></li>
+              <li><a class="dropdown-item" href="/product/view">공정현황</a></li>
+
+            </ul>
+          </div>
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              출하관리
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" aria-current="page" href="/productList">재고현황</a></li>
+              <li><a class="dropdown-item" aria-current="page" href="/inventorysOut">출고현황</a></li>
+            </ul>
+          </div>
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="custom-btn btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              회원관리
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" href="/members">
+                회원목록
+              </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <hr class="my-2">
+    </div>
+    <div class="col-lg-10 col-md-8 py-5">
+      <div class="py-5 mt-5">
+        <h2 class="py-4">회원 목록</h2>
+        <table class="py-3 table table-striped">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>비밀번호</th>
+            <th>직급</th>
+            <th>부서</th>
+            <th>전화번호</th>
+            <th>등급</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="member : ${members}">
+            <td th:text="${member.id}"></td>
+            <td th:text="${member.loginId}"></td>
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.password}"></td>
+            <td th:text="${member.position}"></td>
+            <td th:text="${member.department}"></td>
+            <td th:text="${member.phone}"></td>
+            <td th:text="${member.grade}"></td>
+            <td>
+              <a href="#" th:href="@{/members/{id}/edit(id=${member.id})}" class="btn btn-warning" role="button">수정</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

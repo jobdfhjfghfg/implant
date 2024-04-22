@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>process-info</title>
+</head>
+<body>
+<div class="container">
+    <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+</div>
+<div class="container-fluid">
+    <div class="row py-4 d-flex justify-content-center">
+        <div class="col-lg-2 py-5 mt-3">
+            <hr class="my-3">
+            <div class="btn-group-vertical  col-sm-4" role="group" aria-label="Vertical button group" >
+                <div class="row">
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            기본정보
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/product-info">제품정보</a></li>
+                            <li><a class="dropdown-item" href="/process-info">공정정보</a></li>
+                            <li><a class="dropdown-item" href="/workOrder">작업지시</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            자재관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/material/process">공정계획</a></li>
+                            <li><a class="dropdown-item" href="/inventorys">입고현황</a></li>
+                            <li><a class="dropdown-item" href="/boms">BOM</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            생산관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/machineStatus">설비 현황</a></li>
+                            <li><a class="dropdown-item" href="/product/view">공정현황</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            출하관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" aria-current="page" href="/productList">재고현황</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="/inventorysOut">출고현황</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="custom-btn btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            회원관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/members">
+                                회원목록
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-2">
+        </div>
+        <div class="col my-3">
+            <section id="portfolio">
+                <div class="container overflow-hidden">
+                    <div class="text-center text-white py-5">
+                        <h1 class="fw-bold mb-3 text-black">공정 정보</h1>
+                        <div class="row gx-3">
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="overflow-hidden">
+                                        <img src="./images/process-info1.jpg" class="card-img-top" alt="가공 이미지">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold pt-2">1. 가공</h5>
+                                        <p class="card-text text-secondary fw-bold pt-2"> 수거된 치아를 소독하고 뼈이식으로 사용하기 위한 가공과정을 진행</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="overflow-hidden">
+                                        <img src="./images/process-info2.jpg" class="card-img-top" alt="품질 검사">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold pt-2">2. 품질 검사</h5>
+                                        <p class="card-text fw-bold text-secondary pt-2"> 임플란트 내부 이물질 검사, <br>코팅의 내구성 이상 유무 검사</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="overflow-hidden">
+                                        <img src="./images/process-info3.jpg" class="card-img-top" alt="">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold pt-2">3. 세척</h5>
+                                        <p class="card-text fw-bold text-secondary pt-2">임플란트 세척 공정을 통해 <br>최종적으로 다시 한번 멸균 처리</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="overflow-hidden">
+                                        <img src="./images/process-info4.jpg" class="card-img-top" alt="">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold pt-2">4. 포장</h5>
+                                        <p class="card-text fw-bold text-secondary pt-2">임플란트가 완전히 소독됐는지 <br>재점검하고 라벨을 부착한 후 포장</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}"/>
+<!--재고확인 모달 관련 스크립트-->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#submitBtn").click(function(){
+            var productName = $("#productName").val();
+            var reQuantity = $("#reQuantity").val();
+
+            // AJAX 호출해서 PostMapping주소로 요청을 넣어줌
+            $.ajax({
+                url: '/productOut',
+                type: 'POST',
+                data: {productName: productName, reQuantity: reQuantity},
+                success: function(response){
+                    // 서버에서 반환된 결과에 따라 모달 창 표시
+                    $('#successModal').modal('show');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('#errorModal').modal('show');
+                }
+            });
+        });
+    });
+</script>
+<!--재고확인 관련 모달 스크립트-->
+<body>
+<div class="container">
+    <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+</div>
+<div class="container-fluid">
+    <div class="row py-4 d-flex justify-content-center">
+        <div class="col-lg-2 py-5 mt-3">
+            <hr class="my-3">
+            <div class="btn-group-vertical  col-sm-4" role="group" aria-label="Vertical button group" >
+                <div class="row">
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            기본정보
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/product-info">제품정보</a></li>
+                            <li><a class="dropdown-item" href="/process-info">공정정보</a></li>
+                            <li><a class="dropdown-item" href="/workOrder">작업지시</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            자재관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/material/process">공정계획</a></li>
+                            <li><a class="dropdown-item" href="/inventorys">입고현황</a></li>
+                            <li><a class="dropdown-item" href="/boms">BOM</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            생산관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/machineStatus">설비 현황</a></li>
+                            <li><a class="dropdown-item" href="/product/view">공정현황</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            출하관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" aria-current="page" href="/productList">재고현황</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="/inventorysOut">출고현황</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="custom-btn btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            회원관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/members">
+                                회원목록
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-2">
+        </div>
+        <div class="col">
+            <div class="py-5 mt-5">
+                <h2 class="py-4">출고 등록</h2>
+                <form role="form" th:Object="${product}" method="post" class="py-2">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="my-2">
+                        <label class="form-label" th:for="*{productName}">제품명</label>
+                        <select class="form-select" th:field="*{productName}">
+                            <option value="">제품을 선택하세요</option>
+                            <option th:each="product : ${T(project.teamproject.domain.ProductName).values()}"
+                                    th:value="${product}" th:text="${product}"></option>
+                        </select>
+                    </div>
+                    <div class="my-2">
+                        <label class="form-label" th:for="*{reQuantity}">수량</label>
+                        <input class="form-control" placeholder="수량을 입력하세요" th:field="*{reQuantity}">
+                    </div>
+                    <button type="button" id="submitBtn" class="btn btn-warning btn-sm"  >
+                        출고
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+
+<!-- 재고 출고 성공 모달 -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel"><i class="bi bi-check-lg text-success fs-1"></i> 출고 완료</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                출고요청이 성공적으로 처리되었습니다.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 재고 부족 모달 -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger fw-bold" id="errorModalLabel"><i class="bi bi-exclamation-octagon text-danger fs-2"></i> &nbsp; 재고 부족</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>완제품 재고가 부족하여 출고를 처리할 수 없습니다.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<!--모달 css-->
+<style>
+    .modal.fade.show {
+        transform: scale(0.9);
+        transition: transform 0.9s ease;
+    }
+    .modal.fade {
+        transition: opacity 0.5s linear, transform 0.5s ease-out;
+    }
+</style>
+</html>

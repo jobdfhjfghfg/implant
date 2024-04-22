@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}"/>
+<body>
+<div class="container">
+    <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+</div>
+<div class="container-fluid">
+    <div class="row py-4 d-flex justify-content-center">
+        <div class="col-lg-2 py-5 mt-3">
+            <hr class="my-3">
+            <div class="btn-group-vertical  col-sm-4" role="group" aria-label="Vertical button group" >
+                <div class="row">
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            기본정보
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/product-info">제품정보</a></li>
+                            <li><a class="dropdown-item" href="/process-info">공정정보</a></li>
+                            <li><a class="dropdown-item" href="/workOrder">작업지시</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            자재관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/material/process">공정계획</a></li>
+                            <li><a class="dropdown-item" href="/inventorys">입고현황</a></li>
+                            <li><a class="dropdown-item" href="/boms">BOM</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            생산관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/machineStatus">설비 현황</a></li>
+                            <li><a class="dropdown-item" href="/product/view">공정현황</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            출하관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" aria-current="page" href="/productList">재고현황</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="/inventorysOut">출고현황</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown col pb-5" role="group">
+                        <button type="button" class="custom-btn btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+                            회원관리
+                        </button>
+                        <ul class="dropdown-menu" style="background-color: #beee62;">
+                            <li><a class="dropdown-item" href="/members">
+                                회원목록
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-2">
+        </div>
+        <div class="col">
+            <div class="py-5 mt-5">
+                <div class="container">
+                    <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+                    <h2 class="py-4">BOM등록</h2>
+                    <form role="form" th:object="${form}" method="post" class="py-2">
+
+                        <div class="my-2">
+                            <label class="form-label" th:for="*{processes}">공정#</label>
+                            <input type="text" class="form-control" placeholder="공정을 입력하세요" th:field="*{processes}">
+                        </div>
+                        <div class="my-2">
+                            <label class="form-label">투입공정</label>
+                            <select th:field="*{entryProcess}">
+                                <option value="임플란트생산" selected>임플란트생산</option>
+                            </select>
+                        </div>
+                        <div class="my-2">
+                            <label class="form-label" th:for="*{materialCode}">품목코드</label>
+                            <input type="text" class="form-control" placeholder="공정을 입력하세요" th:field="*{materialCode}">
+                        </div>
+                        <div class="my-2">
+                            <label class="form-label">품목명</label>
+                            <select th:field="*{materialName}">
+                                <option value="">품목 명을 선택하세요</option>
+                                <option value="TITANIUM">TITANIUM</option>
+                                <option value="SUS">SUS</option>
+                                <option value="COBALT">COBALT</option>
+                            </select>
+                        </div>
+                        <div class="my-2">
+                            <label class="form-label">품목유형</label>
+                            <select th:field="*{materialType}">
+                                <option value="">품목 유형을 선택하세요</option>
+                                <option value="반제품">부재료</option>
+                                <option value="원재료">원재료</option>
+                            </select>
+                        </div>
+                        <div class="my-2">
+                            <label class="form-label">기준단위</label>
+                            <select th:field="*{unit}">
+                                <option value="EA" selected>EA</option>
+                                <option value="KG" selected>KG</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-sm">입력</button>
+                    </form>
+                    <div th:insert="~{fragments/footer :: footer}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

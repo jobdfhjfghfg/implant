@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header}"/>
+<body>
+<div class="container">
+  <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
+</div>
+<div class="container-fluid">
+  <div class="row py-4 d-flex justify-content-center">
+    <div class="col-lg-2 py-5 mt-3">
+      <hr class="my-3">
+      <div class="btn-group-vertical  col-sm-4" role="group" aria-label="Vertical button group" >
+        <div class="row">
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              기본정보
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" href="/product-info">제품정보</a></li>
+              <li><a class="dropdown-item" href="/process-info">공정정보</a></li>
+              <li><a class="dropdown-item" href="/workOrder">작업지시</a></li>
+            </ul>
+          </div>
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              자재관리
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" href="/material/process">공정계획</a></li>
+              <li><a class="dropdown-item" href="/inventorys">입고현황</a></li>
+              <li><a class="dropdown-item" href="/boms">BOM</a></li>
+
+            </ul>
+          </div>
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              생산관리
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" href="/machineStatus">설비 현황</a></li>
+              <li><a class="dropdown-item" href="/product/view">공정현황</a></li>
+
+            </ul>
+          </div>
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              출하관리
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" aria-current="page" href="/productList">재고현황</a></li>
+              <li><a class="dropdown-item" aria-current="page" href="/inventorysOut">출고현황</a></li>
+            </ul>
+          </div>
+          <div class="btn-group dropdown col pb-5" role="group">
+            <button type="button" class="custom-btn btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d1b3e !important;">
+              회원관리
+            </button>
+            <ul class="dropdown-menu" style="background-color: #beee62;">
+              <li><a class="dropdown-item" href="/members">
+                회원목록
+              </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <hr class="my-2">
+    </div>
+    <div class="col">
+      <div class="py-5 mt-5">
+        <div class="d-flex justify-content-between">
+          <h2 class="py-4">입고 현황</h2>
+          <a href="/inventory/new" class="btn btn-secondary my-5 pb-2" role="button">입고 등록</a>
+        </div>
+
+        <form action="/searchInventory" method="GET">
+          <input type="text" name="query" placeholder="제품명을 입력하세요...">
+          <button type="submit">검색</button>
+        </form>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>거래처(업체명)</th>
+            <th>입고일자</th>
+            <th>입고번호</th>
+            <th>품목번호</th>
+            <th>품목명</th>
+            <th>입고수량</th>
+            <th>단가</th>
+            <th>현재고</th>
+            <th>담당자</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="inventoryIn : ${inventorys}">
+            <td th:text="${inventoryIn.id}"></td>
+            <td th:text="${inventoryIn.clientName}"></td>
+            <td th:text="${inventoryIn.date}"></td>
+            <td th:text="${inventoryIn.whNum}"></td>
+            <td th:text="${inventoryIn.materialCode}"></td>
+            <td th:text="${inventoryIn.materialName}"></td>
+            <td th:text="${inventoryIn.whQuantity}"></td>
+            <td th:text="${inventoryIn.whPrice}"></td>
+            <td th:text="${inventoryIn.materialQuantity}"></td>
+            <td th:text="${inventoryIn.manager}"></td>
+            <td>
+              <a href="#" th:href="@{/inventoryIn/{id}/edit(id=${inventoryIn.id})}"
+                 class="btn btn-warning" role="button">수정</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>
